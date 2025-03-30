@@ -1,0 +1,11 @@
+<!-- Wiki の表示 -->
+<%
+   if controller &&
+      controller.class.name == 'WikiController' &&
+      controller.action_name == 'show' &&
+      @project &&
+      @project.module_enabled?(:wiki_treenav)
+%>
+  <%= stylesheet_link_tag('wiki_treenav.css', plugin: :redmine_wiki_treenav) %>
+  <%= javascript_include_tag('wiki_treenav.js', plugin: :redmine_wiki_treenav) %>
+<% end %> <!-- if -->

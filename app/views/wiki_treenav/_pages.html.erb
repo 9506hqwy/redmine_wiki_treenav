@@ -1,0 +1,50 @@
+<%
+   depth = params[:depth].to_i
+%>
+
+<% @pages.each do |page| %>
+
+<tr id="treenav-<%= page.id %>" class="treenav-<%= @parent_id %> collapsed">
+    <td style="padding-left: <%= 18 * depth %>px;">
+        <a class="collapsible collapsed expander icon icon-collapsed"
+           href="#"
+           data-id="treenav-<%= page.id %>"
+           data-url="<%=
+          url_for(
+            controller: "wiki_treenav",
+            action: "pages",
+            project_id: @project.id,
+            id: page.id,
+            depth: depth + 1)%>"
+        >&nbsp;</a>
+
+        <span>
+            <a class="name"
+               title="<%= page.title %>"
+               href="<%=
+                url_for(
+                    controller: :wiki,
+                    action: "show",
+                    project_id: @project.id,
+                    id: page.title)%>">
+                <%= page.title %>
+            </a>
+        </span>
+    </td>
+
+    <% if User.current.allowed_to?(:edit_wiki_pages, @project) %>
+        <td class="add">
+            <a class="icon icon-add"
+               data-remote="true"
+               href="<%= new_project_wiki_page_path(@project, parent: page.title) %>">
+                <% if Redmine::VERSION::MAJOR > 5 %>
+                    <%= sprite_icon('add') %>
+                <% else %>
+                    &nbsp;
+                <% end %>
+            </a>
+        </td>
+    <% end %>
+</tr>
+
+<% end %>

@@ -1,0 +1,75 @@
+<!-- Wiki の表示 -->
+<%
+   if controller &&
+      controller.class.name == 'WikiController' &&
+      controller.action_name == 'show' &&
+      @project &&
+      @project.module_enabled?(:wiki_treenav)
+%>
+
+<%
+    @pages = []
+    @currentTree = []
+
+    if !@page.new_record?
+        @pages = [@page]
+        @currentTree << @page.id
+    end
+
+    parent = @page.parent
+    while parent.present? do
+        @pages = [parent]
+        @currentTree.insert(0, parent.id)
+
+        parent = parent.parent
+    end
+%>
+
+<div id="wiki-treenav">
+    <div id="wiki-treenav-switch-panel" style="visibility: hidden;">
+        <a id="wiki-treenav-switch-button"
+           class="icon <%= Redmine::VERSION::MAJOR > 5 ? '' : 'icon-arrow-right' %>"
+           href="#">
+            <% if Redmine::VERSION::MAJOR > 5 %>
+                <%= sprite_icon("chevrons-left", size: 20) %>
+            <% else %>
+                &nbsp;
+            <% end %>
+        </a>
+    </div>
+    <div id="wiki-treenav-wrapper">
+        <table>
+            <tbody>
+                <%= render(partial: 'wiki_treenav/pages') %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    // Setup tree navigation.
+    const main = document.getElementById('main');
+    const treenav = document.getElementById('wiki-treenav');
+    main.appendChild(treenav);
+
+    // Initial display for tree navigation.
+    const navState = getWikiTreeNavState();
+    if (navState == 'expanded' && main.classList.contains('collapsedwikitreenav')) {
+        toggleWikiTreeNav();
+    } else if (navState == 'collapsed' && !main.classList.contains('collapsedwikitreenav')) {
+        toggleWikiTreeNav();
+    }
+
+    // Open current tree.
+    const pageIds = [
+      <% @currentTree.each do |id| %>
+        <%= id %>,
+      <% end %>
+    ];
+    saveWikiTreeNavPosition(pageIds);
+    initialWikiTreePage();
+  });
+</script>
+
+<% end %> <!-- if -->

@@ -1,10 +1,28 @@
-# Template Redmine Plugin
+# Redmine Wiki Tree Navigation
+
+This plugin provides tree navigation for wiki pages.
+
+## Features
+
+- Display tree navigation for wiki pages in left side bar.
+
+## Installatin
+
+1. Download plugin in Redmine plugin directory.
+   ```sh
+   git clone https://github.com/9506hqwy/redmine_wiki_treenav.git
+   ```
+2. Start Redmine
+
+## Configuration
+
+1. Enable plugin module.
+
+   Check [Wiki Tree Nav] in project setting.
 
 ## Tested Environment
 
 * Redmine (Docker Image)
-  * 3.4
-  * 4.0
   * 4.1
   * 4.2
   * 5.0

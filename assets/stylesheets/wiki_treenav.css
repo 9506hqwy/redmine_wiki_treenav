@@ -1,0 +1,86 @@
+#main.collapsedwikitreenav #wiki-treenav {
+  width: 0;
+  padding-right: 0
+}
+
+#main.collapsedwikitreenav #wiki-treenav-switch-button.icon-arrow-right {
+  transform: rotate(0deg);
+}
+
+#main.collapsedwikitreenav #wiki-treenav-wrapper {
+  display: none;
+}
+
+#wiki-treenav {
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+  padding-left: 20px;
+  background: #f9fafb;
+  border-right: 1px solid #d0d7de
+}
+
+@media screen and (min-width: 0px) and (max-width: 1089px) {#wiki-treenav{width: 22%;}}
+@media screen and (min-width: 1090px) and (max-width: 1279px) {#wiki-treenav{width: 240px;}}
+@media screen and (min-width: 1280px) and (max-width: 1599px) {#wiki-treenav{width: 280px;}}
+@media screen and (min-width: 1600px) and (max-width: 1919px) {#wiki-treenav{width: 320px;}}
+@media screen and (min-width: 1920px) and (max-width: 2559px) {#wiki-treenav{width: 360px;}}
+
+#wiki-treenav a.icon {
+  text-decoration: none;
+}
+
+#wiki-treenav-switch-panel {
+  margin-left: -20px;
+  text-align: right;
+}
+
+#wiki-treenav-switch-button {
+  display: block;
+  padding: 3px 0;
+}
+
+#wiki-treenav-switch-button.icon-arrow-right {
+  transform: rotate(180deg);
+}
+
+#wiki-treenav-switch-button svg {
+  stroke: #555;
+}
+
+#wiki-treenav-switch-button:hover {
+  background-color: #eeeeee;
+}
+
+#wiki-treenav-wrapper {
+    margin-left: -12px;
+}
+
+#wiki-treenav-wrapper table {
+  width: 100%;
+  table-layout: fixed;
+  border-style: none;
+  border-spacing: 0px;
+}
+
+#wiki-treenav-wrapper tr:hover {
+  background-color: #eeeeee;
+}
+
+#wiki-treenav-wrapper td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#wiki-treenav-wrapper td.add {
+  width: 22px;
+}
+
+#wiki-treenav-wrapper a.name.current {
+  color: red;
+  pointer-events: none;
+}
+
+#wiki-treenav-wrapper tr.no-children a.expander {
+  pointer-events: none;
+}
