@@ -24,6 +24,7 @@
 @media screen and (min-width: 1280px) and (max-width: 1599px) {#wiki-treenav{width: 280px;}}
 @media screen and (min-width: 1600px) and (max-width: 1919px) {#wiki-treenav{width: 320px;}}
 @media screen and (min-width: 1920px) and (max-width: 2559px) {#wiki-treenav{width: 360px;}}
+@media screen and (min-width: 2560px) {#wiki-treenav{width: 380px;}}
 
 #wiki-treenav a.icon {
   text-decoration: none;
