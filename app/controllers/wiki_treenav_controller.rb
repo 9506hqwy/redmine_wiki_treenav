@@ -6,7 +6,7 @@ class WikiTreenavController < ApplicationController
 
   def pages
     @parent_id = params[:id]
-    @pages = WikiPage.where(parent_id: @parent_id).all
+    @pages = WikiPage.where(parent_id: @parent_id).order(Arel.sql('LOWER(title)').asc).all
 
     render(partial: 'wiki_treenav/pages')
   end
