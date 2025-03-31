@@ -8,19 +8,18 @@
 %>
 
 <%
-    @pages = []
+    wiki = Wiki.where(project_id: @project.id).first
+    @pages = wiki.pages.where(parent_id: nil).all
+
     @currentTree = []
 
     if !@page.new_record?
-        @pages = [@page]
         @currentTree << @page.id
     end
 
     parent = @page.parent
     while parent.present? do
-        @pages = [parent]
         @currentTree.insert(0, parent.id)
-
         parent = parent.parent
     end
 %>
