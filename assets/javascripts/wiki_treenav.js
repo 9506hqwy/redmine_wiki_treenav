@@ -38,6 +38,12 @@ function collapseWikiTreePageRow(row) {
     expander.classList.add('collapsed');
     expander.classList.add('icon-collapsed');
 
+    const icon = expander.querySelector('svg');
+    if (icon !== null) {
+        updateSVGIcon(icon, 'angle-right');
+        icon.classList.add('icon-rtl');
+    }
+
     row.classList.add('collapsed');
 
     for (const child of document.querySelectorAll(`.${row.id}`)) {
@@ -77,6 +83,12 @@ function expandWikiTreePageRow(row) {
     expander.classList.remove('icon-collapsed');
     expander.classList.add('icon-expended');
     expander.classList.add('icon-expanded');
+
+    const icon = expander.querySelector('svg');
+    if (icon !== null) {
+        updateSVGIcon(icon, 'angle-down');
+        icon.classList.remove('icon-rtl');
+    }
 
     for (const child of document.querySelectorAll(`.${row.id}`)) {
         displayWikiTreePageRow(child);
@@ -163,8 +175,15 @@ function toggleWikiTreeNav() {
 
 function toggleWikiTreePage(e) {
     e.preventDefault();
+    e.stopPropagation();
 
-    const row = document.getElementById(e.target.dataset.id);
+    let target = e.target
+    let row = document.getElementById(target.dataset.id);
+    if (row === null) {
+        target = target.closest('.expander');
+        row = document.getElementById(target.dataset.id);
+    }
+
     if (!row.classList.contains('collapsed')) {
         collapseWikiTreePageRow(row);
         return;
@@ -181,7 +200,7 @@ function toggleWikiTreePage(e) {
     };
 
     row.classList.add('loading');
-    fetch(e.target.dataset.url, option).then(function (response) {
+    fetch(target.dataset.url, option).then(function (response) {
         if (response.ok) {
             response.text().then(function (data) {
                 addWikiTreePageRow(row, data);
@@ -213,6 +232,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Enable tree function.
     for (const ex of document.querySelectorAll('#wiki-treenav-wrapper .expander')) {
         ex.addEventListener('click', toggleWikiTreePage);
+    }
+
+    // Enable tree function (Redmine 7.0 or later).
+    for (const icon of document.querySelectorAll('#wiki-treenav-wrapper .expander svg')) {
+        icon.addEventListener('click', toggleWikiTreePage);
     }
 
     // Enable collapsing button.

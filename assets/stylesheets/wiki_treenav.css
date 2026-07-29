@@ -85,3 +85,7 @@
 #wiki-treenav-wrapper tr.no-children a.expander {
   pointer-events: none;
 }
+
+#wiki-treenav-wrapper tr.no-children a.expander svg {
+  opacity: 0;
+}

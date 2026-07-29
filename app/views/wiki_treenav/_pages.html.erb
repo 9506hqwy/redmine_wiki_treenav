@@ -16,7 +16,13 @@
             project_id: @project.id,
             id: page.id,
             depth: depth + 1)%>"
-        >&nbsp;</a>
+        >
+            <% if Redmine::VERSION::MAJOR > 6 %>
+                <%= sprite_icon("angle-right", rtl: true) %>
+            <% else %>
+                &nbsp;
+            <% end %>
+        </a>
 
         <span>
             <a class="name"
